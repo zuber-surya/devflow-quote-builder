@@ -1,10 +1,12 @@
-> **ARCHIVED — DO NOT TREAT AS PROJECT HISTORY.** This document marks Sprints 1-14 as
-> "✅ Done" through a `mobile/` phase, referencing GitHub issues #32-#82. None of that
-> exists in this repo (Phase 0 scaffolding just completed, Phase 1 not started). Content
-> appears to be a template/aspirational artifact from a different project instance. Kept
-> for reference only (its module breakdown may still be useful for future sprint
-> planning). Real phase plan lives in root `README.md` and `.devflow/state.md`.
-> Archived 2026-08-14.
+> **ARCHIVED — CORRECTION (2026-08-14).** Originally archived here with a note calling
+> this "fictional/template" content. That was wrong. This document is real and accurate
+> — it describes `github.com/zuber-surya/quote-invoice-builder`, a separate, actively
+> developed sister repo (Sprints 1-14 done, ~84 merged PRs) that this local folder was
+> never connected to. This repo (`devflow-quote-builder`) is an intentionally fresh,
+> separate project per the human's explicit decision — so this document's sprint history
+> still isn't this repo's history, but it's not made up. Kept for reference only; its
+> module breakdown may still inform this repo's own milestones. Real phase plan for
+> *this* repo lives in root `README.md` and `.devflow/state.md`.
 
 # Quote & Invoice Builder — Sprint Plan
 

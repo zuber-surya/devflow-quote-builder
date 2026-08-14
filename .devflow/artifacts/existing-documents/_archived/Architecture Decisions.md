@@ -1,9 +1,13 @@
-> **ARCHIVED — DO NOT TREAT AS PROJECT HISTORY.** This document describes a fully-built
-> app (Sprints 1-14 done, PRs up to #82, shadcn migrated, E2E/CI wired). None of that
-> exists in this repo — `src/` has 9 scaffolding files, Phase 0 just completed, Phase 1
-> (auth) hasn't started. Content appears to be a template/aspirational artifact from a
-> different project instance. Kept for reference only. Real decisions live in
-> `.devflow/decisions/decisions.md`. Archived 2026-08-14.
+> **ARCHIVED — CORRECTION (2026-08-14).** Originally archived here with a note calling
+> this "fictional/template" content. That was wrong. This document is real and accurate
+> — it describes `github.com/zuber-surya/quote-invoice-builder`, a separate, actively
+> developed sister repo (Sprints 1-14 done, ~84 merged PRs, shadcn migrated, E2E/CI
+> wired) that this local folder was never connected to. This repo (`devflow-quote-builder`)
+> is an intentionally fresh, separate project per the human's explicit decision — so
+> these ADRs still aren't this repo's decisions, but they're not made up, and may be
+> worth deliberately re-adopting here (e.g. the PDF library choice) since they reflect
+> real, working experience on a nearly-identical app. Real decisions for *this* repo
+> live in `.devflow/decisions/decisions.md`.
 
 # Quote & Invoice Builder — Architecture Decisions
 
