@@ -97,6 +97,16 @@ Full review of client requirements vs `existing-documents/` vs `stitch/` mockups
 
 No scope creep found — all 13 core existing-documents and all stitch screens stay within the client's approved V1 feature list.
 
+## 🐙 GITHUB (2026-08-14)
+
+**Important correction:** a separate, real, far-more-advanced sister repo already exists at `github.com/zuber-surya/quote-invoice-builder` (Sprints 1-14 done, ~84 merged PRs, actual `web/` app). This local folder was never connected to it. Per explicit human decision, this project continues as its own intentionally separate repo rather than merging with that one.
+
+- **Repo:** https://github.com/zuber-surya/devflow-quote-builder (public), pushed from this local folder's history.
+- **Milestones:** M0-M9 created (Project Setup → Authentication → Customers → Products → Quotes → Invoices → Payments → Mobile → QA → Production), matching `existing-documents/Code & Development Workflow.md` §25.
+- **Issues:** #1-#10, one per milestone, phase-level granularity, each with a task checklist reflecting actual current status (M0 mostly done, M1 partially done — register works, login is a skeleton).
+- **Labels:** feature, bug, enhancement, documentation, frontend, backend, mobile, database, security, testing.
+- Next real work: finish M1 (Authentication) — issue #2.
+
 ---
 
 ## 📁 KEY FILES
