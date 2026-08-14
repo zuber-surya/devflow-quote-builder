@@ -1,3 +1,6 @@
+# Claude Code local tool/plugin data (not project code)
+.claude/
+
 # Dependencies
 node_modules/
 /.pnp
