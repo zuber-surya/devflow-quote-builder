@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Products &amp; Services - Serene Sanctuary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Outfit:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffd9de",
+                        "inverse-surface": "#30312f",
+                        "primary-fixed": "#d3e8d5",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#4a5d4e",
+                        "tertiary-fixed-dim": "#e3bdc2",
+                        "on-primary-container": "#c0d5c2",
+                        "secondary-fixed-dim": "#f0bd8b",
+                        "surface-tint": "#506354",
+                        "on-tertiary-container": "#ecc6ca",
+                        "inverse-on-surface": "#f2f0ee",
+                        "tertiary-container": "#6e5155",
+                        "inverse-primary": "#b7ccb9",
+                        "secondary-fixed": "#ffdcbd",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#2c1600",
+                        "surface-container": "#efeeeb",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#e9e8e5",
+                        "on-surface-variant": "#434843",
+                        "surface-dim": "#dbdad7",
+                        "on-secondary-container": "#7a532a",
+                        "on-tertiary-fixed-variant": "#5b4043",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#0e1f13",
+                        "on-tertiary-fixed": "#2b1519",
+                        "secondary": "#7d562d",
+                        "surface": "#fbf9f6",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f5f3f1",
+                        "secondary-container": "#ffca98",
+                        "outline": "#737872",
+                        "surface-container-highest": "#e4e2e0",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1b1c1a",
+                        "background": "#fbf9f6",
+                        "on-error": "#ffffff",
+                        "on-surface": "#1b1c1a",
+                        "surface-variant": "#e4e2e0",
+                        "tertiary": "#553a3e",
+                        "primary": "#334537",
+                        "on-primary-fixed-variant": "#394b3d",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#fbf9f6",
+                        "on-secondary-fixed-variant": "#623f18",
+                        "outline-variant": "#c3c8c1",
+                        "primary-fixed-dim": "#b7ccb9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "24": "1.5rem"
+                    },
+                    "spacing": {
+                        "max-width": "1200px",
+                        "container-padding": "48px",
+                        "unit": "8px",
+                        "section-gap": "80px",
+                        "element-gap": "24px",
+                        "gutter": "32px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["EB Garamond"],
+                        "body-md": ["Outfit"],
+                        "body-lg": ["Outfit"],
+                        "headline-md": ["EB Garamond"],
+                        "label-md": ["Outfit"],
+                        "headline-sm": ["EB Garamond"],
+                        "body-sm": ["Outfit"],
+                        "headline-lg": ["EB Garamond"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["20px", {"lineHeight": "32px", "fontWeight": "300"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg": ["48px", {"lineHeight": "56px", "fontWeight": "400"}]
+                    },
+                    "boxShadow": {
+                        "whisper": "0 12px 24px -4px rgba(44, 53, 45, 0.05)"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #F9F6F0; /* Fallback */
+            color: #1b1c1a;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen flex overflow-x-hidden">
+<!-- SideNavBar (Shared Component JSON Blueprint) -->
+<nav class="hidden md:flex flex-col h-full py-8 px-6 space-y-element-gap bg-surface-container-low dark:bg-inverse-surface text-primary dark:text-primary-fixed-dim docked left-0 h-full w-64 fixed z-20">
+<!-- Header / Brand Logo -->
+<div class="mb-8">
+<div class="flex items-center space-x-4 mb-6">
+<img alt="Business logo" class="w-10 h-10 rounded-lg object-cover" data-alt="A minimalist line-art logo of a stylized leaf or botanical element, colored in Deep Sage green, placed on a pure white background. The aesthetic is clean, high-end, and evokes a sense of natural wellness and serene simplicity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCv7FLvkOEK26eYtlfTBRcrnmxY0jx9i_CaGzahsdzBKq_qOj8nRQRiJBBQtB8lOoxq4RFchMvx5s_KMt_vSNn6F6Rygn9PcrugG5Iwz9Vs8bJ-guBh9EGj9OaDY9U5bbDjxhmXtOILYOIWMuufyM45Es2vIXuGEI9NAHAPfyHP1IvnCAaXZB8kgXA1vI-Vake_tn-fqF7arKFNeExQdG8W0X699G3I0dIlOT0UEmhyrSsdJchLV_2Pqw"/>
+<div>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim m-0 p-0 leading-none">Freelance Suite</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant m-0 mt-1">Professional Edition</p>
+</div>
+</div>
+<!-- CTA -->
+<button class="w-full bg-primary text-on-primary py-3 px-4 rounded-xl font-label-md text-label-md flex items-center justify-center space-x-2 hover:bg-surface-tint transition-colors duration-300 shadow-whisper">
+<span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+<span>New Project</span>
+</button>
+</div>
+<!-- Main Navigation -->
+<ul class="flex-1 space-y-2">
+<li>
+<a class="flex items-center space-x-3 py-3 px-4 rounded-xl text-on-surface-variant font-medium hover:text-primary hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 py-3 px-4 rounded-xl text-on-surface-variant font-medium hover:text-primary hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+</li>
+<!-- Active State -->
+<li>
+<a class="flex items-center space-x-3 py-3 px-4 rounded-xl bg-surface-container-highest text-primary font-bold border-r-2 border-primary transition-transform duration-200" href="#" style="transform: scale(0.98);">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 py-3 px-4 rounded-xl text-on-surface-variant font-medium hover:text-primary hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="request_quote">request_quote</span>
+<span class="font-label-md text-label-md">Quotes</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 py-3 px-4 rounded-xl text-on-surface-variant font-medium hover:text-primary hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-md text-label-md">Invoices</span>
+</a>
+</li>
+</ul>
+<!-- Footer Navigation -->
+<div class="mt-auto pt-8 border-t border-outline-variant/30">
+<ul class="space-y-2">
+<li>
+<a class="flex items-center space-x-3 py-3 px-4 rounded-xl text-on-surface-variant font-medium hover:text-primary hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 py-3 px-4 rounded-xl text-on-surface-variant font-medium hover:text-primary hover:bg-surface-container-highest transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-0 md:ml-64 transition-all duration-300">
+<!-- TopAppBar (Shared Component JSON Blueprint) -->
+<header class="flex justify-between items-center w-full px-container-padding h-20 bg-surface dark:bg-surface-dim docked full-width top-0 z-10 sticky top-0 flat no shadows border-b border-surface-variant/50">
+<!-- Mobile Menu Toggle (Visible only on mobile) -->
+<button class="md:hidden text-primary p-2 -ml-2 rounded-full hover:bg-surface-container-high transition-colors duration-300">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<!-- Search Bar (on_left) -->
+<div class="hidden md:flex items-center w-96 max-w-full">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 transform -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-3 rounded-full bg-surface-container-lowest border border-outline/30 focus:border-outline focus:ring-0 text-body-sm font-body-sm text-on-surface placeholder-outline transition-colors shadow-sm" placeholder="Search across Aether Management..." type="text"/>
+</div>
+</div>
+<!-- Mobile Context Title -->
+<div class="md:hidden font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed-dim truncate px-4">
+                Products &amp; Services
+            </div>
+<!-- Right Actions -->
+<div class="flex items-center space-x-6">
+<button class="text-on-surface-variant hover:bg-surface-container-high transition-colors duration-300 p-2 rounded-full relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="flex items-center space-x-3 cursor-pointer p-1 rounded-full hover:bg-surface-container-high transition-colors duration-300">
+<img alt="User profile photo" class="w-10 h-10 rounded-full border border-surface-variant object-cover" data-alt="A soft, desaturated portrait of a professional looking individual, warm natural lighting, pure white background, minimal shadows, evoking a sense of calm reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5MKCrD4aQ76Ono6VSj0_t5CLGpp7ywmI7kW63MFcDUWakddjn1EBZY61ht2yYpO8ztzbcEZ-KNsAFgSs1nTLbADVpz1xUQQkMBp6Q2YyOf3o5OLIyBVUKm1424pc8T_7KOcZJsXTOTPGC4t4Kkb8NeiESKlFE90tLd2l8jd7_Z2v6oy1FEIePVAnRz9EaM6LrB97XQv_ArlcytKAsNeOYt11gmafGRI23eQ9EYy1-lyMfhIlC6FRtZw"/>
+<div class="hidden lg:block text-right pr-2">
+<p class="font-label-md text-label-md text-on-surface m-0 leading-tight">Admin User</p>
+<p class="font-body-sm text-[11px] text-on-surface-variant m-0 leading-tight">Workspace</p>
+</div>
+<span class="material-symbols-outlined hidden lg:block text-on-surface-variant text-sm">expand_more</span>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-container-padding max-w-[max-width] mx-auto min-h-[calc(100vh-80px)]">
+<!-- Page Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
+<div>
+<p class="font-label-md text-label-md text-primary tracking-wider uppercase mb-2 opacity-80">Catalog</p>
+<h2 class="font-headline-lg text-headline-lg text-primary m-0">Products &amp; Services</h2>
+</div>
+<button class="bg-primary text-on-primary py-3 px-6 rounded-full font-label-md text-label-md flex items-center space-x-2 hover:bg-surface-tint transition-all duration-300 shadow-whisper hover:shadow-lg transform hover:-translate-y-0.5">
+<span class="material-symbols-outlined">add</span>
+<span>Add Product</span>
+</button>
+</div>
+<!-- Controls (Search & Filter) -->
+<div class="bg-surface-container-lowest rounded-24 p-6 shadow-whisper mb-8 border border-outline-variant/20 flex flex-col md:flex-row gap-4 items-center">
+<div class="relative w-full md:w-96">
+<span class="material-symbols-outlined absolute left-4 top-1/2 transform -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-3 rounded-xl bg-surface border border-outline/30 focus:border-outline focus:ring-0 text-body-sm font-body-sm text-on-surface placeholder-outline transition-colors" placeholder="Search by name, SKU, or category..." type="text"/>
+</div>
+<div class="flex flex-wrap gap-2 w-full md:w-auto">
+<button class="px-4 py-2 rounded-full bg-primary/10 text-primary font-label-md text-label-md border border-primary/20 hover:bg-primary/20 transition-colors">All Types</button>
+<button class="px-4 py-2 rounded-full bg-transparent text-on-surface-variant font-label-md text-label-md border border-outline-variant hover:bg-surface-container-high transition-colors">Services</button>
+<button class="px-4 py-2 rounded-full bg-transparent text-on-surface-variant font-label-md text-label-md border border-outline-variant hover:bg-surface-container-high transition-colors">Physical Products</button>
+<button class="px-4 py-2 rounded-full bg-transparent text-on-surface-variant font-label-md text-label-md border border-outline-variant hover:bg-surface-container-high transition-colors">Retreat Packages</button>
+</div>
+<div class="ml-auto w-full md:w-auto flex justify-end">
+<button class="p-2 text-outline hover:text-primary transition-colors flex items-center gap-1 font-label-md text-label-md">
+<span class="material-symbols-outlined">filter_list</span> Filter
+                    </button>
+</div>
+</div>
+<!-- Data Table Card -->
+<div class="bg-surface-container-lowest rounded-24 shadow-whisper border border-outline-variant/20 overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/30">
+<th class="p-6 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Name</th>
+<th class="p-6 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">SKU / ID</th>
+<th class="p-6 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Category</th>
+<th class="p-6 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold text-right">Rate (INR)</th>
+<th class="p-6 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold text-right">Tax Rate</th>
+<th class="p-6 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold text-center w-32">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container/50 transition-colors duration-150 group">
+<td class="p-6">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 rounded-lg bg-surface flex items-center justify-center border border-outline-variant/30 text-primary">
+<span class="material-symbols-outlined">spa</span>
+</div>
+<div>
+<p class="font-body-md text-body-md font-medium text-on-surface m-0">Guided Meditation Session</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant m-0 mt-0.5 truncate max-w-xs">60-minute private guided mindfulness practice.</p>
+</div>
+</div>
+</td>
+<td class="p-6 font-body-sm text-body-sm text-on-surface-variant font-mono">SRV-MED-01</td>
+<td class="p-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-primary/10 text-primary">Wellness Service</span>
+</td>
+<td class="p-6 font-body-md text-body-md text-on-surface text-right">₹ 2,500.00</td>
+<td class="p-6 font-body-sm text-body-sm text-on-surface-variant text-right">18% GST</td>
+<td class="p-6 text-center">
+<div class="flex items-center justify-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+<button class="p-1.5 text-outline hover:text-primary hover:bg-surface-container-highest rounded-lg transition-colors" title="Edit">
+<span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
+</button>
+<button class="p-1.5 text-outline hover:text-primary hover:bg-surface-container-highest rounded-lg transition-colors" title="Duplicate">
+<span class="material-symbols-outlined" style="font-size: 20px;">content_copy</span>
+</button>
+<button class="p-1.5 text-outline hover:text-error hover:bg-error/10 rounded-lg transition-colors" title="Delete">
+<span class="material-symbols-outlined" style="font-size: 20px;">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container/50 transition-colors duration-150 group">
+<td class="p-6">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 rounded-lg bg-surface flex items-center justify-center border border-outline-variant/30 text-primary">
+<span class="material-symbols-outlined">self_care</span>
+</div>
+<div>
+<p class="font-body-md text-body-md font-medium text-on-surface m-0">Aromatherapy Care Kit</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant m-0 mt-0.5 truncate max-w-xs">Curated set of 3 essential oils and diffuser.</p>
+</div>
+</div>
+</td>
+<td class="p-6 font-body-sm text-body-sm text-on-surface-variant font-mono">PRD-ARO-03</td>
+<td class="p-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-tertiary-fixed-dim/30 text-tertiary">Physical Product</span>
+</td>
+<td class="p-6 font-body-md text-body-md text-on-surface text-right">₹ 4,200.00</td>
+<td class="p-6 font-body-sm text-body-sm text-on-surface-variant text-right">12% GST</td>
+<td class="p-6 text-center">
+<div class="flex items-center justify-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+<button class="p-1.5 text-outline hover:text-primary hover:bg-surface-container-highest rounded-lg transition-colors" title="Edit">
+<span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
+</button>
+<button class="p-1.5 text-outline hover:text-primary hover:bg-surface-container-highest rounded-lg transition-colors" title="Duplicate">
+<span class="material-symbols-outlined" style="font-size: 20px;">content_copy</span>
+</button>
+<button class="p-1.5 text-outline hover:text-error hover:bg-error/10 rounded-lg transition-colors" title="Delete">
+<span class="material-symbols-outlined" style="font-size: 20px;">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container/50 transition-colors duration-150 group">
+<td class="p-6">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 rounded-lg bg-surface flex items-center justify-center border border-outline-variant/30 text-primary">
+<span class="material-symbols-outlined">hotel_class</span>
+</div>
+<div>
+<p class="font-body-md text-body-md font-medium text-on-surface m-0">Weekend Retreat Package</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant m-0 mt-0.5 truncate max-w-xs">2 nights accommodation, meals, and 4 therapy sessions.</p>
+</div>
+</div>
+</td>
+<td class="p-6 font-body-sm text-body-sm text-on-surface-variant font-mono">PKG-WKD-99</td>
+<td class="p-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-secondary-fixed-dim/30 text-secondary">Bundle / Package</span>
+</td>
+<td class="p-6 font-body-md text-body-md text-on-surface text-right">₹ 28,000.00</td>
+<td class="p-6 font-body-sm text-body-sm text-on-surface-variant text-right">18% GST</td>
+<td class="p-6 text-center">
+<div class="flex items-center justify-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+<button class="p-1.5 text-outline hover:text-primary hover:bg-surface-container-highest rounded-lg transition-colors" title="Edit">
+<span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
+</button>
+<button class="p-1.5 text-outline hover:text-primary hover:bg-surface-container-highest rounded-lg transition-colors" title="Duplicate">
+<span class="material-symbols-outlined" style="font-size: 20px;">content_copy</span>
+</button>
+<button class="p-1.5 text-outline hover:text-error hover:bg-error/10 rounded-lg transition-colors" title="Delete">
+<span class="material-symbols-outlined" style="font-size: 20px;">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container/50 transition-colors duration-150 group">
+<td class="p-6">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 rounded-lg bg-surface flex items-center justify-center border border-outline-variant/30 text-primary">
+<span class="material-symbols-outlined">nature_people</span>
+</div>
+<div>
+<p class="font-body-md text-body-md font-medium text-on-surface m-0">Consultation: Holistic Nutrition</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant m-0 mt-0.5 truncate max-w-xs">Initial assessment and meal planning guidance.</p>
+</div>
+</div>
+</td>
+<td class="p-6 font-body-sm text-body-sm text-on-surface-variant font-mono">SRV-NUT-01</td>
+<td class="p-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-primary/10 text-primary">Wellness Service</span>
+</td>
+<td class="p-6 font-body-md text-body-md text-on-surface text-right">₹ 3,500.00</td>
+<td class="p-6 font-body-sm text-body-sm text-on-surface-variant text-right">18% GST</td>
+<td class="p-6 text-center">
+<div class="flex items-center justify-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+<button class="p-1.5 text-outline hover:text-primary hover:bg-surface-container-highest rounded-lg transition-colors" title="Edit">
+<span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
+</button>
+<button class="p-1.5 text-outline hover:text-primary hover:bg-surface-container-highest rounded-lg transition-colors" title="Duplicate">
+<span class="material-symbols-outlined" style="font-size: 20px;">content_copy</span>
+</button>
+<button class="p-1.5 text-outline hover:text-error hover:bg-error/10 rounded-lg transition-colors" title="Delete">
+<span class="material-symbols-outlined" style="font-size: 20px;">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="bg-surface border-t border-outline-variant/30 p-4 flex items-center justify-between">
+<p class="font-body-sm text-body-sm text-on-surface-variant m-0">Showing 1 to 4 of 24 entries</p>
+<div class="flex space-x-2">
+<button class="p-2 rounded-lg border border-outline-variant/50 text-outline hover:bg-surface-container-high hover:text-primary transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined" style="font-size: 20px;">chevron_left</span>
+</button>
+<button class="p-2 rounded-lg border border-outline-variant/50 text-outline hover:bg-surface-container-high hover:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

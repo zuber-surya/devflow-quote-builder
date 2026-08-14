@@ -1,0 +1,339 @@
+// This is your Prisma schema file.
+// Learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// AUTHENTICATION & USER MANAGEMENT
+// ============================================================================
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique @db.VarChar(255)
+  name      String   @db.VarChar(150)
+  password  String   @db.Text // hashed password from Auth.js
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  businessProfile BusinessProfile?
+  customers       Customer[]
+  products        Product[]
+  quotes          Quote[]
+  invoices        Invoice[]
+  refreshTokens   RefreshToken[]
+
+  @@map("users")
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique @db.Text
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  @@map("refresh_tokens")
+}
+
+// ============================================================================
+// BUSINESS PROFILE
+// ============================================================================
+
+model BusinessProfile {
+  id String @id @default(cuid())
+
+  // Basic Info
+  businessName String @db.VarChar(255)
+  ownerName    String @db.VarChar(150)
+  email        String @db.VarChar(255)
+  phone        String @db.VarChar(20)
+  website      String @db.VarChar(255)
+
+  // Address
+  address    String @db.VarChar(500)
+  city       String @db.VarChar(100)
+  state      String @db.VarChar(100)
+  country    String @db.VarChar(100)
+  postalCode String @db.VarChar(20)
+
+  // Tax & Compliance
+  taxNumber String? @db.VarChar(50) // GSTIN/Tax ID
+
+  // Branding
+  logoUrl      String?   @db.VarChar(500) // Path to logo
+  logoUploadedAt DateTime?
+
+  // Document Branding
+  primaryAccentColor  String? @db.VarChar(7) // Hex color
+  defaultFooterNote   String? @db.Text
+  defaultTermsNote    String? @db.Text
+
+  // Settings
+  currency String @default("INR") @db.VarChar(3)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
+
+  @@map("business_profiles")
+}
+
+// ============================================================================
+// CUSTOMERS
+// ============================================================================
+
+model Customer {
+  id String @id @default(cuid())
+
+  // Required
+  customerName String @db.VarChar(255)
+
+  // Optional
+  companyName String? @db.VarChar(255)
+  email       String? @db.VarChar(255)
+  phone       String? @db.VarChar(20)
+
+  // Address
+  address    String? @db.VarChar(500)
+  city       String? @db.VarChar(100)
+  state      String? @db.VarChar(100)
+  country    String? @db.VarChar(100)
+  postalCode String? @db.VarChar(20)
+
+  // Tax & Compliance
+  taxNumber String? @db.VarChar(50) // GSTIN/Tax ID
+
+  // Notes
+  notes String? @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  // Relations
+  quotes   Quote[]
+  invoices Invoice[]
+
+  @@unique([userId, customerName])
+  @@map("customers")
+}
+
+// ============================================================================
+// PRODUCTS / SERVICES
+// ============================================================================
+
+model Product {
+  id String @id @default(cuid())
+
+  // Basic Info
+  name        String @db.VarChar(255)
+  description String? @db.Text
+  sku         String? @db.VarChar(100)
+
+  // Pricing & Tax
+  price   Decimal @db.Numeric(12, 2) // Price per unit
+  taxRate Decimal @default(0) @db.Numeric(5, 2) // Tax percentage (e.g., 18.00 for 18%)
+  unit    String  @default("Unit") @db.VarChar(50)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  // Relations
+  quoteItems   QuoteItem[]
+  invoiceItems InvoiceItem[]
+
+  @@unique([userId, sku])
+  @@map("products")
+}
+
+// ============================================================================
+// QUOTES
+// ============================================================================
+
+model Quote {
+  id String @id @default(cuid())
+
+  // Numbering
+  quoteNumber String @db.VarChar(50) // User-facing: Q-2026-00001
+
+  // Customer
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  customerId String
+
+  // Status & Dates
+  status    QuoteStatus @default(DRAFT)
+  issuedAt  DateTime    @default(now())
+  expiresAt DateTime?   // When quote expires
+
+  // Financials (RECALCULATED ON SERVER)
+  subtotal Decimal @db.Numeric(14, 2) // Sum of line items
+  taxAmount Decimal @db.Numeric(14, 2) // Total tax
+  total    Decimal @db.Numeric(14, 2) // subtotal + tax - discount
+
+  discount       Decimal? @default(0) @db.Numeric(14, 2) // Discount amount
+  discountPercentage Decimal? @db.Numeric(5, 2) // Discount %
+
+  // Notes & Terms
+  notes String? @db.Text
+  termsAndConditions String? @db.Text
+
+  // Conversion to Invoice
+  convertedToInvoiceId String?  // Link to created invoice
+  convertedAt          DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  // Relations
+  items   QuoteItem[]
+  invoice Invoice?    @relation("QuoteToInvoice", fields: [convertedToInvoiceId], references: [id])
+
+  @@unique([userId, quoteNumber])
+  @@map("quotes")
+}
+
+enum QuoteStatus {
+  DRAFT
+  SENT
+  ACCEPTED
+  REJECTED
+  EXPIRED
+  CONVERTED
+}
+
+model QuoteItem {
+  id String @id @default(cuid())
+
+  // Line Item Details
+  product   Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  productId String
+
+  quantity Decimal @db.Numeric(10, 4)
+  unitPrice Decimal @db.Numeric(12, 2) // Price at time of quote
+  
+  discount Decimal? @default(0) @db.Numeric(14, 2) // Item-level discount
+  taxRate  Decimal  @db.Numeric(5, 2) // Tax % for this item
+  
+  // Calculated at server
+  lineTotal Decimal @db.Numeric(14, 2) // (quantity * unitPrice) - discount
+
+  quote   Quote  @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  quoteId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("quote_items")
+}
+
+// ============================================================================
+// INVOICES
+// ============================================================================
+
+model Invoice {
+  id String @id @default(cuid())
+
+  // Numbering
+  invoiceNumber String @db.VarChar(50) // User-facing: INV-2026-00001
+
+  // Links
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  customerId String
+
+  // Reference to source quote (if converted from quote)
+  sourceQuote Quote? @relation("QuoteToInvoice", fields: [quoteId], references: [id], onDelete: SetNull)
+  quoteId     String?
+
+  // Dates
+  issuedAt DateTime @default(now())
+  dueAt    DateTime // Payment due date
+
+  // Financials (RECALCULATED ON SERVER)
+  subtotal Decimal @db.Numeric(14, 2)
+  taxAmount Decimal @db.Numeric(14, 2)
+  total    Decimal @db.Numeric(14, 2)
+  
+  discount       Decimal? @default(0) @db.Numeric(14, 2)
+  discountPercentage Decimal? @db.Numeric(5, 2)
+
+  // Payment Tracking
+  paidAmount      Decimal         @default(0) @db.Numeric(14, 2)
+  paymentStatus   PaymentStatus   @default(UNPAID)
+  markedPaidAt    DateTime?
+  markedPaidBy    String?         // User ID who marked as paid
+
+  // Notes & Terms
+  notes String? @db.Text
+  termsAndConditions String? @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  // Relations
+  items InvoiceItem[]
+
+  @@unique([userId, invoiceNumber])
+  @@map("invoices")
+}
+
+enum PaymentStatus {
+  UNPAID
+  PARTIALLY_PAID
+  PAID
+  OVERDUE
+}
+
+model InvoiceItem {
+  id String @id @default(cuid())
+
+  // Line Item Details
+  product   Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  productId String
+
+  quantity Decimal @db.Numeric(10, 4)
+  unitPrice Decimal @db.Numeric(12, 2)
+  
+  discount Decimal? @default(0) @db.Numeric(14, 2)
+  taxRate  Decimal  @db.Numeric(5, 2)
+  
+  lineTotal Decimal @db.Numeric(14, 2) // Calculated at server
+
+  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  invoiceId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("invoice_items")
+}
+
+// ============================================================================
+// AUDIT & LOGS (Optional for later)
+// ============================================================================
+
+// Future: Add audit_logs table for compliance
+// audit_logs (id, entity_type, entity_id, action, changes, user_id, created_at)

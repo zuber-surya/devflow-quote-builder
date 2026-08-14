@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Business Profile - Serene Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Outfit:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffd9de",
+                        "on-secondary-fixed": "#2c1600",
+                        "surface-dim": "#dbdad7",
+                        "on-primary-container": "#c0d5c2",
+                        "on-primary-fixed-variant": "#394b3d",
+                        "surface": "#fbf9f6",
+                        "secondary-fixed-dim": "#f0bd8b",
+                        "inverse-on-surface": "#f2f0ee",
+                        "on-secondary-container": "#7a532a",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e9e8e5",
+                        "background": "#fbf9f6",
+                        "on-background": "#1b1c1a",
+                        "surface-variant": "#e4e2e0",
+                        "surface-container-low": "#f5f3f1",
+                        "surface-container": "#efeeeb",
+                        "tertiary": "#553a3e",
+                        "on-error": "#ffffff",
+                        "on-surface": "#1b1c1a",
+                        "on-surface-variant": "#434843",
+                        "outline": "#737872",
+                        "secondary": "#7d562d",
+                        "primary-container": "#4a5d4e",
+                        "primary-fixed": "#d3e8d5",
+                        "surface-tint": "#506354",
+                        "surface-bright": "#fbf9f6",
+                        "on-tertiary-fixed-variant": "#5b4043",
+                        "inverse-primary": "#b7ccb9",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#ffca98",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#ffdcbd",
+                        "primary-fixed-dim": "#b7ccb9",
+                        "on-tertiary-fixed": "#2b1519",
+                        "on-secondary-fixed-variant": "#623f18",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#c3c8c1",
+                        "tertiary-container": "#6e5155",
+                        "tertiary-fixed-dim": "#e3bdc2",
+                        "inverse-surface": "#30312f",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e4e2e0",
+                        "primary": "#334537",
+                        "on-tertiary-container": "#ecc6ca",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#0e1f13"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "card": "24px",
+                        "input": "16px"
+                    },
+                    "spacing": {
+                        "max-width": "1200px",
+                        "element-gap": "24px",
+                        "gutter": "32px",
+                        "container-padding": "48px",
+                        "unit": "8px",
+                        "section-gap": "80px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["EB Garamond"],
+                        "headline-sm": ["EB Garamond"],
+                        "body-lg": ["Outfit"],
+                        "label-md": ["Outfit"],
+                        "display-lg": ["EB Garamond"],
+                        "headline-md": ["EB Garamond"],
+                        "body-sm": ["Outfit"],
+                        "body-md": ["Outfit"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["48px", { "lineHeight": "56px", "fontWeight": "400" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "body-lg": ["20px", { "lineHeight": "32px", "fontWeight": "300" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    },
+                    "boxShadow": {
+                        "whisper": "0 12px 24px -4px rgba(44, 53, 45, 0.05)"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .whisper-shadow {
+            box-shadow: 0 12px 24px -4px rgba(44, 53, 45, 0.05);
+        }
+        body {
+            background-color: #F9F6F0; /* Alabaster Cream */
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md min-h-screen">
+<!-- SideNavBar -->
+<nav class="hidden md:flex fixed left-0 top-0 h-full flex-col p-6 gap-element-gap bg-surface-container-low dark:bg-surface-container-lowest h-screen w-72 flex-shrink-0">
+<div class="flex items-center gap-4 mb-8 px-4">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-variant flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A stylized, minimalist leaf logo representing a serene wellness or boutique business. The design should be simple, elegant, and perfectly centered within a soft, off-white circular frame, matching the high-end aesthetic of the application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoTHH-Ydnf7irLSW7g8C8opcolVtOmgLDCmDVhkIC9gEATrF8SWwqktUxei32heeBZZDWkal68yLzrRkSRQdA-BdKbaFMQZ4X843fMPJQX5ldD3u6VQbLp16rYXvJlqWtf6hqj7noPjZZZMg_q0crFpRiTOkqAszagHvMpZiuP0e4N-mro5IvX6Cx-AV3T2kYmthfXex4NaSgFtTlLhZdMNcSQn4Yt68oJWUZR6-9BCUYe-Jzr5nVllQ"/>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary dark:text-primary-fixed-dim tracking-tight">Serene Business</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Quote &amp; Invoice Manager</p>
+</div>
+</div>
+<button class="w-full py-3 px-6 rounded-full bg-primary text-on-primary hover:bg-surface-tint transition-colors duration-300 flex items-center justify-center gap-2 font-label-md text-label-md mb-4 shadow-whisper">
+<span class="material-symbols-outlined">add</span>
+            Create New
+        </button>
+<ul class="flex flex-col gap-2 flex-grow">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors duration-300 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform duration-200">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors duration-300 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform duration-200">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors duration-300 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform duration-200">inventory_2</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors duration-300 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform duration-200">request_quote</span>
+<span class="font-label-md text-label-md">Quotes</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors duration-300 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform duration-200">receipt_long</span>
+<span class="font-label-md text-label-md">Invoices</span>
+</a>
+</li>
+</ul>
+<div class="mt-auto border-t border-surface-variant pt-4">
+<ul class="flex flex-col gap-2">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-primary dark:text-primary-fixed-dim font-bold bg-surface-bright dark:bg-surface-container-high scale-95 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined font-bold">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors duration-300 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform duration-200">help</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="md:ml-72 min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-container-padding py-unit h-20 max-w-full bg-surface-bright/80 dark:bg-surface-dim/80 backdrop-blur-md sticky top-0 z-10 transition-opacity hover:opacity-80">
+<div class="flex items-center gap-4 w-1/3">
+<div class="relative w-full max-w-md hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-full bg-surface-container-low border-none focus:ring-1 focus:ring-outline/30 text-body-sm font-body-sm text-on-surface placeholder:text-on-surface-variant/60" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex justify-center w-1/3">
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim hidden md:block">Serene Portal</h1>
+</div>
+<div class="flex justify-end items-center gap-4 w-1/3 text-primary dark:text-primary-fixed-dim">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A small, circular profile picture showing a calm, professional headshot in warm lighting, perfectly matching a serene corporate portal aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxlA8b-K4RNfJQjPnUNjsWppaNrMQ7qhkw5oO9_o77JBjoYPMqmfgq-yPHGDTgLY7WZ11TUb1VHT_zGIRHvo_eNqEFesvQhFSNWTTG2xuhUNZZq_FwsHwko-DYCzU9oIHsdZXaynJeUeloeOrnC-Pjusz8SGfJf1NQoRY_YZKSBGSAsGYYzTp-tUhvuSuwPQUENSleW4POUTNzYJ-AUxKEeLemmAWwOV6pF09gHz01HSx0oJE_Xlj6UA"/>
+</button>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-grow p-container-padding w-full max-w-max-width mx-auto">
+<div class="mb-section-gap">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Business Profile</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Manage your company details and brand identity across all documents.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Settings Navigation (Bento Column 1) -->
+<div class="lg:col-span-3 flex flex-col gap-4">
+<div class="bg-surface-container-lowest rounded-card p-6 whisper-shadow flex flex-col gap-2">
+<a class="px-4 py-3 rounded-xl bg-surface-container-low text-primary font-label-md text-label-md transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-[20px]">storefront</span>
+                            Business Profile
+                         </a>
+<a class="px-4 py-3 rounded-xl hover:bg-surface-container-low text-on-surface-variant hover:text-primary font-label-md text-label-md transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-[20px]">palette</span>
+                            Invoice Themes
+                         </a>
+<a class="px-4 py-3 rounded-xl hover:bg-surface-container-low text-on-surface-variant hover:text-primary font-label-md text-label-md transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+                            Payment Details
+                         </a>
+<a class="px-4 py-3 rounded-xl hover:bg-surface-container-low text-on-surface-variant hover:text-primary font-label-md text-label-md transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+                            Preferences
+                         </a>
+</div>
+</div>
+<!-- Main Forms (Bento Column 2) -->
+<div class="lg:col-span-9 flex flex-col gap-element-gap">
+<!-- General Info Card -->
+<div class="bg-surface-container-lowest rounded-card p-8 whisper-shadow">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-6 border-b border-surface-variant pb-4">General Information</h3>
+<div class="flex flex-col md:flex-row gap-8 mb-8 items-start">
+<div class="flex-shrink-0 flex flex-col items-center gap-3">
+<div class="w-32 h-32 rounded-2xl bg-surface-container-low flex items-center justify-center border border-dashed border-outline/30 relative overflow-hidden group">
+<img class="w-full h-full object-cover opacity-60" data-alt="A soft, abstract botanical illustration acting as a placeholder for a company logo, rendered in muted sage and cream tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnksIDxKOgJMlbb_CqVt5uNtNQQnb1kwDmeJ4opRZktghRWZzA81jW9wir6N_qM5c1b58Ork2SZV1vbm7HhFjKXu5XUzXAcctEl1DKTJzKhWJRDLKgHd7LcL25A7jgnhrMhB7fwPPHYb8MPRO1ggRuYxESSpAIQsZYZdsE04G3bq7ikgPxwyRHfSVo41W3iHLz3UT7PYrDA2APj3GF9gHzBGKIh7ktpIZXkhlQePOG1xUxj0_ZD03MmQ"/>
+<div class="absolute inset-0 bg-primary/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined text-primary">upload</span>
+</div>
+</div>
+<button class="text-primary font-label-md text-label-md hover:underline">Change Logo</button>
+</div>
+<div class="flex-grow grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+<div class="flex flex-col gap-2 md:col-span-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Company Name</label>
+<input class="w-full rounded-input border border-outline/30 bg-surface-container-lowest px-4 py-3 font-body-md text-body-md text-on-surface focus:border-outline focus:ring-0 transition-colors" type="text" value="Serene Business"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Email Address</label>
+<input class="w-full rounded-input border border-outline/30 bg-surface-container-lowest px-4 py-3 font-body-md text-body-md text-on-surface focus:border-outline focus:ring-0 transition-colors" type="email" value="hello@serene.co"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Phone Number</label>
+<input class="w-full rounded-input border border-outline/30 bg-surface-container-lowest px-4 py-3 font-body-md text-body-md text-on-surface focus:border-outline focus:ring-0 transition-colors" type="tel" value="+1 (555) 123-4567"/>
+</div>
+<div class="flex flex-col gap-2 md:col-span-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Website</label>
+<input class="w-full rounded-input border border-outline/30 bg-surface-container-lowest px-4 py-3 font-body-md text-body-md text-on-surface focus:border-outline focus:ring-0 transition-colors" type="url" value="https://serene.co"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Address Details Card -->
+<div class="bg-surface-container-lowest rounded-card p-8 whisper-shadow">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-6 border-b border-surface-variant pb-4">Address Details</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2 md:col-span-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Street Address</label>
+<input class="w-full rounded-input border border-outline/30 bg-surface-container-lowest px-4 py-3 font-body-md text-body-md text-on-surface focus:border-outline focus:ring-0 transition-colors" type="text" value="123 Harmony Lane, Suite 400"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">City</label>
+<input class="w-full rounded-input border border-outline/30 bg-surface-container-lowest px-4 py-3 font-body-md text-body-md text-on-surface focus:border-outline focus:ring-0 transition-colors" type="text" value="Portland"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">State / Province</label>
+<input class="w-full rounded-input border border-outline/30 bg-surface-container-lowest px-4 py-3 font-body-md text-body-md text-on-surface focus:border-outline focus:ring-0 transition-colors" type="text" value="Oregon"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">ZIP / Postal Code</label>
+<input class="w-full rounded-input border border-outline/30 bg-surface-container-lowest px-4 py-3 font-body-md text-body-md text-on-surface focus:border-outline focus:ring-0 transition-colors" type="text" value="97204"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Country</label>
+<select class="w-full rounded-input border border-outline/30 bg-surface-container-lowest px-4 py-3 font-body-md text-body-md text-on-surface focus:border-outline focus:ring-0 transition-colors appearance-none">
+<option>United States</option>
+<option>Canada</option>
+<option>United Kingdom</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Document Branding Card -->
+<div class="bg-surface-container-lowest rounded-card p-8 whisper-shadow">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-6 border-b border-surface-variant pb-4">Document Branding</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6">These settings will be applied to all your generated quotes and invoices.</p>
+<div class="flex flex-col gap-8">
+<div class="flex flex-col gap-3">
+<label class="font-label-md text-label-md text-on-surface-variant">Primary Accent Color</label>
+<div class="flex gap-4">
+<button class="w-12 h-12 rounded-full bg-primary flex items-center justify-center ring-2 ring-offset-2 ring-primary ring-offset-surface-container-lowest shadow-whisper">
+<span class="material-symbols-outlined text-white text-[20px]">check</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-[#7a532a] hover:scale-105 transition-transform"></button>
+<button class="w-12 h-12 rounded-full bg-[#5b4043] hover:scale-105 transition-transform"></button>
+<button class="w-12 h-12 rounded-full border-2 border-dashed border-outline/50 flex items-center justify-center text-outline hover:border-outline transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Default Footer Note</label>
+<textarea class="w-full rounded-input border border-outline/30 bg-surface-container-lowest px-4 py-3 font-body-md text-body-md text-on-surface focus:border-outline focus:ring-0 transition-colors resize-none" rows="3">Thank you for your business. Please remit payment within 30 days. For any questions, contact billing@serene.co.</textarea>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex justify-end gap-4 mt-4">
+<button class="px-6 py-3 rounded-full border border-outline/30 text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors">
+                            Cancel
+                        </button>
+<button class="px-6 py-3 rounded-full bg-primary text-on-primary font-label-md text-label-md hover:bg-surface-tint transition-colors shadow-whisper">
+                            Save Changes
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

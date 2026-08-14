@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Invoice Preview - Lumina Suite</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&amp;family=EB+Garamond:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e4e2e0",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#ffca98",
+                        "surface-dim": "#dbdad7",
+                        "inverse-on-surface": "#f2f0ee",
+                        "on-primary-fixed-variant": "#394b3d",
+                        "on-primary-container": "#c0d5c2",
+                        "on-surface": "#1b1c1a",
+                        "outline-variant": "#c3c8c1",
+                        "inverse-primary": "#b7ccb9",
+                        "surface-container-high": "#e9e8e5",
+                        "surface-container-highest": "#e4e2e0",
+                        "tertiary-container": "#6e5155",
+                        "tertiary-fixed": "#ffd9de",
+                        "on-surface-variant": "#434843",
+                        "on-secondary-fixed-variant": "#623f18",
+                        "on-background": "#1b1c1a",
+                        "surface-container-low": "#f5f3f1",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#e3bdc2",
+                        "background": "#fbf9f6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#0e1f13",
+                        "tertiary": "#553a3e",
+                        "primary-container": "#4a5d4e",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#d3e8d5",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#fbf9f6",
+                        "secondary-fixed": "#ffdcbd",
+                        "outline": "#737872",
+                        "surface-container": "#efeeeb",
+                        "surface-tint": "#506354",
+                        "secondary-fixed-dim": "#f0bd8b",
+                        "primary-fixed-dim": "#b7ccb9",
+                        "on-tertiary-fixed": "#2b1519",
+                        "on-tertiary-fixed-variant": "#5b4043",
+                        "secondary": "#7d562d",
+                        "on-tertiary-container": "#ecc6ca",
+                        "inverse-surface": "#30312f",
+                        "primary": "#334537",
+                        "on-secondary-fixed": "#2c1600",
+                        "surface": "#fbf9f6",
+                        "on-secondary-container": "#7a532a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "gutter": "32px",
+                        "container-padding": "48px",
+                        "max-width": "1200px",
+                        "element-gap": "24px",
+                        "section-gap": "80px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Outfit"],
+                        "body-sm": ["Outfit"],
+                        "label-md": ["Outfit"],
+                        "headline-md": ["EB Garamond"],
+                        "headline-lg": ["EB Garamond"],
+                        "body-md": ["Outfit"],
+                        "headline-sm": ["EB Garamond"],
+                        "display-lg": ["EB Garamond"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["20px", { "lineHeight": "32px", "fontWeight": "300" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "400" }],
+                        "headline-lg": ["48px", { "lineHeight": "56px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "display-lg": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .whisper-shadow {
+            box-shadow: 0 12px 24px -4px rgba(44, 53, 45, 0.05);
+        }
+        @media print {
+            body * { visibility: hidden; }
+            #invoice-document, #invoice-document * { visibility: visible; }
+            #invoice-document { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none; margin: 0; padding: 0; }
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface text-body-md min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar (Desktop Only) -->
+<nav class="hidden md:flex flex-col h-screen fixed left-0 top-0 w-64 bg-surface-container-low py-container-padding px-4 border-r border-outline-variant/30">
+<div class="mb-unit font-headline-sm text-headline-sm text-primary">
+            Lumina Suite
+        </div>
+<div class="text-on-surface-variant font-body-sm text-body-sm mb-8">Enterprise Edition</div>
+<div class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg font-label-md text-label-md transition-all duration-300 opacity-90 hover:opacity-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg font-label-md text-label-md transition-all duration-300 opacity-90 hover:opacity-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">group</span>
+                Customers
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg font-label-md text-label-md transition-all duration-300 opacity-90 hover:opacity-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">inventory_2</span>
+                Products
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg font-label-md text-label-md transition-all duration-300 opacity-90 hover:opacity-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">request_quote</span>
+                Quotes
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg font-label-md text-label-md font-semibold transition-all duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+                Invoices
+            </a>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant/30 space-y-2">
+<button class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-surface-tint transition-colors">
+                Create Invoice
+            </button>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg font-label-md text-label-md transition-all duration-300 opacity-90 hover:opacity-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">help_outline</span>
+                Help
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg font-label-md text-label-md transition-all duration-300 opacity-90 hover:opacity-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">logout</span>
+                Sign Out
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar (Mobile Only) -->
+<header class="md:hidden flex justify-between items-center px-gutter w-full h-16 bg-surface shadow-sm sticky top-0 z-10">
+<div class="font-headline-sm text-headline-sm text-primary">
+                Lumina Suite
+            </div>
+<div class="flex gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-200 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-200 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu</span>
+</button>
+</div>
+</header>
+<!-- Workspace Container -->
+<div class="flex-1 bg-surface-container-high p-4 md:p-container-padding flex flex-col items-center justify-start overflow-y-auto">
+<!-- Action Bar -->
+<div class="w-full max-w-[800px] flex flex-wrap justify-between items-center mb-element-gap">
+<h1 class="font-headline-md text-headline-md text-on-surface">Invoice Preview</h1>
+<div class="flex gap-4">
+<button class="px-6 py-2 border border-outline-variant/30 text-on-surface-variant rounded-full font-label-md text-label-md hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">print</span>
+                        Print
+                    </button>
+<button class="px-6 py-2 border border-outline-variant/30 text-on-surface-variant rounded-full font-label-md text-label-md hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">download</span>
+                        Download PDF
+                    </button>
+<button class="px-6 py-2 bg-primary text-on-primary rounded-full font-label-md text-label-md hover:bg-surface-tint transition-colors flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">send</span>
+                        Send to Customer
+                    </button>
+</div>
+</div>
+<!-- Invoice Document (The PDF) -->
+<div class="w-full max-w-[800px] bg-surface-container-lowest rounded-xl whisper-shadow p-container-padding text-on-surface flex flex-col gap-12 aspect-[1/1.414] mb-container-padding" id="invoice-document">
+<!-- Header Section -->
+<div class="flex justify-between items-start">
+<div class="flex gap-6 items-start">
+<!-- Logo Placeholder -->
+<div class="w-16 h-16 bg-surface-variant rounded-lg flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-outline-variant text-3xl">spa</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary mb-1">Serene Business</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">123 Tranquil Lane, Suite 400<br/>Zenith City, ZC 90210<br/>contact@serenebusiness.com</p>
+</div>
+</div>
+<div class="text-right">
+<h1 class="font-display-lg text-display-lg text-surface-tint opacity-80 mb-2">INVOICE</h1>
+<div class="inline-flex items-center px-3 py-1 bg-surface-container-low border border-outline-variant/30 rounded-full font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+                            Unpaid
+                        </div>
+</div>
+</div>
+<!-- Meta Section -->
+<div class="flex justify-between border-t border-b border-outline-variant/20 py-8">
+<div class="w-1/2 pr-8">
+<p class="font-label-md text-label-md text-outline mb-2 uppercase tracking-widest">Bill To</p>
+<p class="font-body-md text-body-md font-semibold text-on-surface">Acme Corporation</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Attn: Jane Doe<br/>456 Corporate Blvd, Floor 8<br/>Metropolis, NY 10001</p>
+</div>
+<div class="w-1/2 pl-8 border-l border-outline-variant/20 flex flex-col gap-4">
+<div class="flex justify-between">
+<span class="font-label-md text-label-md text-outline uppercase tracking-widest">Invoice No.</span>
+<span class="font-body-md text-body-md font-medium">INV-00018</span>
+</div>
+<div class="flex justify-between">
+<span class="font-label-md text-label-md text-outline uppercase tracking-widest">Date Issued</span>
+<span class="font-body-md text-body-md">Oct 24, 2023</span>
+</div>
+<div class="flex justify-between">
+<span class="font-label-md text-label-md text-outline uppercase tracking-widest">Due Date</span>
+<span class="font-body-md text-body-md font-semibold text-primary">Nov 23, 2023</span>
+</div>
+</div>
+</div>
+<!-- Table Section -->
+<div class="flex-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b-2 border-surface-variant text-on-surface-variant">
+<th class="pb-4 font-label-md text-label-md uppercase tracking-widest font-normal w-1/2">Description</th>
+<th class="pb-4 font-label-md text-label-md uppercase tracking-widest font-normal text-center">Qty</th>
+<th class="pb-4 font-label-md text-label-md uppercase tracking-widest font-normal text-right">Unit Price</th>
+<th class="pb-4 font-label-md text-label-md uppercase tracking-widest font-normal text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="text-body-sm font-body-sm">
+<tr class="border-b border-outline-variant/10">
+<td class="py-4">
+<p class="font-medium text-on-surface">Digital Design Consultation</p>
+<p class="text-outline mt-1">Initial strategy and wireframing sessions.</p>
+</td>
+<td class="py-4 text-center">10</td>
+<td class="py-4 text-right">$150.00</td>
+<td class="py-4 text-right font-medium">$1,500.00</td>
+</tr>
+<tr class="border-b border-outline-variant/10">
+<td class="py-4">
+<p class="font-medium text-on-surface">UI Kit Development</p>
+<p class="text-outline mt-1">Custom component library creation.</p>
+</td>
+<td class="py-4 text-center">1</td>
+<td class="py-4 text-right">$3,200.00</td>
+<td class="py-4 text-right font-medium">$3,200.00</td>
+</tr>
+<tr class="border-b border-outline-variant/10">
+<td class="py-4">
+<p class="font-medium text-on-surface">Asset Licensing</p>
+<p class="text-outline mt-1">Premium typography and iconography usage rights.</p>
+</td>
+<td class="py-4 text-center">1</td>
+<td class="py-4 text-right">$450.00</td>
+<td class="py-4 text-right font-medium">$450.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Totals Section -->
+<div class="flex justify-end pt-4">
+<div class="w-1/2 max-w-[300px] flex flex-col gap-3">
+<div class="flex justify-between text-body-sm font-body-sm text-on-surface-variant">
+<span>Subtotal</span>
+<span>$5,150.00</span>
+</div>
+<div class="flex justify-between text-body-sm font-body-sm text-on-surface-variant border-b border-outline-variant/20 pb-3">
+<span>Tax (GST 18%)</span>
+<span>$927.00</span>
+</div>
+<div class="flex justify-between items-center pt-2">
+<span class="font-label-md text-label-md text-outline uppercase tracking-widest">Grand Total</span>
+<span class="font-headline-sm text-headline-sm text-primary">$6,077.00</span>
+</div>
+</div>
+</div>
+<!-- Footer Section -->
+<div class="mt-auto border-t border-outline-variant/20 pt-8 flex justify-between items-end text-body-sm font-body-sm text-on-surface-variant">
+<div class="max-w-[60%]">
+<p class="font-label-md text-label-md text-outline uppercase tracking-widest mb-2">Notes &amp; Terms</p>
+<p class="mb-1">Please remit payment within 30 days of the invoice date.</p>
+<p>Bank Transfer: SereneBank, Acc: 123456789, Routing: 987654321</p>
+</div>
+<div class="text-right text-surface-tint italic font-headline-sm text-headline-sm opacity-70">
+                        Thank you for your business.
+                    </div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
