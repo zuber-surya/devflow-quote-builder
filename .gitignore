@@ -1,5 +1,15 @@
-# Claude Code local tool/plugin data (not project code)
-.claude/
+# Claude Code local tool/plugin data (not project code) - but keep project-authored
+# agents/skills, which ARE meant to be committed and shared. List each skill
+# explicitly rather than un-ignoring .claude/skills/ wholesale, so installed
+# plugin skill caches (e.g. ui-ux-pro-max) never get swept back in.
+.claude/*
+!.claude/agents/
+.claude/agents/*
+!.claude/agents/*.md
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/implement-feature/
+!.claude/skills/db-change-workflow/
 
 # Dependencies
 node_modules/
