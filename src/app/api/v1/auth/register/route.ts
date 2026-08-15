@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { RegisterRequest, ApiResponse } from "@/types/api";
+import { ApiResponse } from "@/types/api";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 

@@ -2,18 +2,22 @@
   "compilerOptions": {
     // Target and module
     "target": "ES2020",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "moduleResolution": "node",
-
     // Output
     "outDir": ".next",
     "rootDir": ".",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
-
     // Strict mode - REQUIRED for this project
     "strict": true,
     "noImplicitAny": true,
@@ -29,12 +33,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
-
     // JSX
     "jsx": "preserve",
     "allowJs": true,
     "checkJs": false,
-
     // Modules
     "resolveJsonModule": true,
     "esModuleInterop": true,
@@ -42,20 +44,23 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-
     // Interop
     "isolatedModules": true,
     "allowImportingTsExtensions": true,
-
     // Emit
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-
     // Lib
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "incremental": true,
-    "tsBuildInfoFile": ".next/tsbuildinfo"
+    "tsBuildInfoFile": ".next/tsbuildinfo",
+    "noEmit": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "next-env.d.ts",

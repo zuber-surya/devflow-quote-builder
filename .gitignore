@@ -17,7 +17,8 @@ node_modules/
 .pnp.js
 pnpm-lock.yaml
 yarn.lock
-package-lock.json
+# package-lock.json is intentionally NOT ignored - this is an application,
+# not a library; the lockfile must be committed for reproducible installs.
 
 # Testing
 /coverage
@@ -80,6 +81,7 @@ tmp/pdfs/*
 
 # Build artifacts
 *.tsbuildinfo
+next-env.d.ts
 
 # Environment-specific
 .env.local

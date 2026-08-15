@@ -40,10 +40,9 @@ export interface LoginResponse {
     email: string;
     name: string;
   };
-  // For web (sessions)
-  sessionToken?: string;
-  // For mobile (JWT)
+  // Mobile only - web auth is cookie-based, nothing to return here.
   accessToken?: string;
+  expiresIn?: number;
   refreshToken?: string;
 }
 
@@ -54,6 +53,9 @@ export interface RefreshTokenRequest {
 export interface RefreshTokenResponse {
   accessToken: string;
   expiresIn: number;
+  // Refresh tokens rotate on use (old one is invalidated) - the client
+  // must persist this and use it for the next refresh call.
+  refreshToken: string;
 }
 
 // ============================================================================

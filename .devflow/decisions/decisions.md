@@ -12,6 +12,16 @@ Approved decisions only. Each entry: decision, rationale, source, date.
 - **Testing:** Vitest (unit/integration), Playwright (E2E, per Testing & QA Spec).
 - Source: root `README.md`, `existing-documents/System Architecture Document.md`, `existing-documents/sot-brain storming.md`. All three agree — no conflict.
 
+## M1 Authentication implementation (2026-08-15, issue #2)
+
+- **Auth library:** `package.json` had `@auth/nextjs@^0.25.0` — not a real published package (npm only has an unrelated `0.0.0-<hash>` canary under that name). Replaced with `next-auth@^5.0.0-beta.32`, the real App-Router-native Auth.js package, paired with the already-correct `@auth/prisma-adapter`.
+- **No `PrismaAdapter` wired up yet**, despite the dependency being installed. Credentials + JWT session strategy never touches `Account`/`Session`/`VerificationToken`, and this schema doesn't have those tables (`database.md`). Add the adapter back only alongside those three tables, together, when an OAuth provider is introduced.
+- **Env vars:** Auth.js reads `AUTH_SECRET`, falling back to `NEXTAUTH_SECRET` (confirmed in `next-auth/lib/env.js`) — existing `SETUP.md`/`GETTING_STARTED.md` already set `NEXTAUTH_SECRET`, no doc change needed. Mobile JWT signing uses `JWT_SECRET` (matches those same docs).
+- **Refresh tokens:** opaque random tokens (not JWTs), stored as SHA-256 hashes only, rotated on every use inside a Prisma transaction (lookup+delete+reissue atomic, prevents a replayed token from yielding two live sessions).
+- **`package.json` had several other dependency versions that don't exist or don't support React 19**: `jsonwebtoken@^9.1.0` (no such version, latest 9.x is 9.0.3), `lucide-react@^0.363.0`, `@testing-library/react@^14.1.0`, `react-hook-form@^7.49.0`, `@hookform/resolvers@^3.3.0`, `next-themes@^0.2.0`, and all 8 pinned `@radix-ui/*` packages — all bumped to current versions with confirmed React 19 peer support. `zod` bumped `^3.22.0` → `^3.25.0` (required by the `@hookform/resolvers` bump). `@types/react`/`@types/react-dom` bumped to `^19.0.0` to match.
+- **Known CVEs surfaced by `npm audit`** in `postcss`/`sharp` (bundled inside `next@15.x`) and `uuid@9.x` — all fixes require a major version bump (Next 15→16, uuid 9→14). Not done as part of this auth fix; flagged for a deliberate decision, not silently upgraded.
+- **Deferred:** `password-reset` endpoint — needs a `PasswordResetToken` schema addition and an email-provider decision. See `questions/open-questions.md` item 7.
+
 ## Blocker resolutions (approved 2026-08-14)
 
 1. **PDF library: `pdfkit`.** Server-side Node, mature, no React dependency in the PDF layer. Rejected `@react-pdf/renderer` (floated only in an archived, non-authoritative doc — see `existing-documents/_archived/`) and `puppeteer` (heavier, browser-spawn overhead not worth it for solo-dev MVP).
