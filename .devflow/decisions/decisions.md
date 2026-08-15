@@ -22,6 +22,12 @@ Approved decisions only. Each entry: decision, rationale, source, date.
 - **Known CVEs surfaced by `npm audit`** in `postcss`/`sharp` (bundled inside `next@15.x`) and `uuid@9.x` — all fixes require a major version bump (Next 15→16, uuid 9→14). Not done as part of this auth fix; flagged for a deliberate decision, not silently upgraded.
 - **Deferred:** `password-reset` endpoint — needs a `PasswordResetToken` schema addition and an email-provider decision. See `questions/open-questions.md` item 7.
 
+## Open-flag resolutions (2026-08-15)
+
+- **Git workflow confirmed:** feature branches + PRs, as `CLAUDE.md` already states. The M1 auth work went straight to `master` (a deviation, now corrected) — starting with the next feature, branch per issue, PR per feature, self-review via `feature-code-reviewer` before merge.
+- **npm audit CVEs deferred** (`postcss`/`sharp` bundled in `next@15.x`, `uuid@9.x`) — both fixes require major version bumps (Next 15→16, uuid 9→14). Revisit at **M9 (Production)** hardening, right before deploy, not now while most routes don't exist yet. Noted on issue #10.
+- **Password-reset email provider: Resend.** No provider was previously decided anywhere. Unblocks building the endpoint — still needs a `PasswordResetToken` Prisma model (via `db-change-workflow` skill) plus the `resend` package and `RESEND_API_KEY` env var. Not yet implemented — see `questions/open-questions.md` item 7.
+
 ## calculations.ts fixes (2026-08-15)
 
 Pre-existing Phase-0 scaffolding, not yet wired into any route (M4/M5), reviewed via `financial-calc-reviewer` and fixed before it becomes load-bearing:
