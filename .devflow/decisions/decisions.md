@@ -22,6 +22,18 @@ Approved decisions only. Each entry: decision, rationale, source, date.
 - **Known CVEs surfaced by `npm audit`** in `postcss`/`sharp` (bundled inside `next@15.x`) and `uuid@9.x` — all fixes require a major version bump (Next 15→16, uuid 9→14). Not done as part of this auth fix; flagged for a deliberate decision, not silently upgraded.
 - **Deferred:** `password-reset` endpoint — needs a `PasswordResetToken` schema addition and an email-provider decision. See `questions/open-questions.md` item 7.
 
+## calculations.ts fixes (2026-08-15)
+
+Pre-existing Phase-0 scaffolding, not yet wired into any route (M4/M5), reviewed via `financial-calc-reviewer` and fixed before it becomes load-bearing:
+
+- **Real bug:** `calculatePaymentStatus` used `p.equals(t)` for PAID — an overpayment (`paidAmount > total`) fell through to `UNPAID`. Fixed to `greaterThanOrEqualTo`.
+- **Missing OVERDUE derivation:** `isOverdue()` existed standalone but nothing combined it with payment status. Added `derivePaymentStatus(total, paidAmount, dueAt)` — overlays OVERDUE onto Unpaid/Partially-Paid only, never onto PAID (matches `business-rules.md`: "past due AND not fully paid").
+- **Negative totals:** `calculateLineTotal`/`calculateGrandTotal` had no floor — a discount exceeding the line subtotal (or document subtotal+tax) could go negative. Both now floor at 0 via `Decimal.max`.
+- **Discount validation:** `validateLineItem` checked quantity/price/tax but never discount. Added negative-discount and discount-exceeds-line-subtotal checks.
+- **Rounding consistency:** added `quantize()` (Decimal-returning, unlike the existing string-returning `roundToTwoDecimals`). Each line total and its tax now round to 2dp individually before summing into subtotal/total-tax, matching the `NUMERIC(14,2)` columns they land in — avoids a persisted line total and persisted subtotal disagreeing by a cent.
+- Added `tests/lib/calculations.test.ts` (28 tests) — this module had zero coverage despite being the one place a bug is a real billing error.
+- **Not done:** tightening `Decimal | number` signatures to reject raw floats from untyped request bodies — flagged by the reviewer as worth doing before M4/M5 wires this to a route, not urgent for scaffolding.
+
 ## Blocker resolutions (approved 2026-08-14)
 
 1. **PDF library: `pdfkit`.** Server-side Node, mature, no React dependency in the PDF layer. Rejected `@react-pdf/renderer` (floated only in an archived, non-authoritative doc — see `existing-documents/_archived/`) and `puppeteer` (heavier, browser-spawn overhead not worth it for solo-dev MVP).
