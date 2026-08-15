@@ -79,7 +79,7 @@ export interface BusinessProfileRequest {
   ownerName: string;
   email: string;
   phone: string;
-  website?: string;
+  website: string;
   address: string;
   city: string;
   state: string;
@@ -89,6 +89,7 @@ export interface BusinessProfileRequest {
   currency?: string;
   primaryAccentColor?: string;
   defaultFooterNote?: string;
+  defaultTermsNote?: string;
 }
 
 export interface BusinessProfile extends BusinessProfileRequest {
