@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db";
+import { hashToken } from "@/lib/crypto";
 
 export const ACCESS_TOKEN_TTL_SECONDS = 15 * 60; // 15 minutes
 const REFRESH_TOKEN_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
@@ -28,10 +29,6 @@ export function verifyAccessToken(token: string): AccessTokenPayload | null {
   } catch {
     return null;
   }
-}
-
-function hashToken(token: string): string {
-  return crypto.createHash("sha256").update(token).digest("hex");
 }
 
 type PrismaClientOrTx = typeof prisma | Prisma.TransactionClient;
@@ -86,4 +83,13 @@ export async function rotateRefreshToken(
 export async function revokeRefreshToken(rawToken: string): Promise<void> {
   const hashed = hashToken(rawToken);
   await prisma.refreshToken.deleteMany({ where: { token: hashed } });
+}
+
+/**
+ * Revokes every refresh token for a user - used after a password reset,
+ * so a stolen-but-not-yet-used refresh token from before the reset can't
+ * keep a session alive.
+ */
+export async function revokeAllRefreshTokensForUser(userId: string): Promise<void> {
+  await prisma.refreshToken.deleteMany({ where: { userId } });
 }

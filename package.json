@@ -27,6 +27,7 @@
     "@prisma/client": "^6.0.0",
     "next-auth": "^5.0.0-beta.32",
     "@auth/prisma-adapter": "^2.0.0",
+    "resend": "^6.20.0",
     "@hookform/resolvers": "^5.8.0",
     "react-hook-form": "^7.85.0",
     "zod": "^3.25.0",

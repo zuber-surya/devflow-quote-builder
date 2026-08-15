@@ -9,7 +9,8 @@
   - Mobile: response includes `{ user, accessToken, refreshToken }`.
 - `POST /api/v1/auth/logout` — implemented. Web: Auth.js `signOut()`. Mobile: pass `{ refreshToken }` in body to revoke it.
 - `POST /api/v1/auth/refresh` — implemented, mobile only. Body `{ refreshToken }` → response `{ accessToken, expiresIn, refreshToken }`. **Refresh tokens rotate on every use** — the old one is deleted, a new one is issued; the client must persist the new value.
-- `POST /api/v1/auth/password-reset` — **not implemented**. Needs a `PasswordResetToken` schema addition and an email-delivery provider decision first (none made yet) — see `questions/open-questions.md`.
+- `POST /api/v1/auth/password-reset` — implemented. Body `{ email }` → always the same generic success response (prevents account enumeration), regardless of whether the email matched. Sends a reset link via Resend if it did.
+- `POST /api/v1/auth/password-reset/confirm` — implemented. Body `{ token, newPassword }` → validates the (single-use, 1hr-expiry) token, updates the password, revokes all of that user's refresh tokens (a reset likely means the old password was compromised, so every existing mobile session is invalidated too).
 - Auth.js's own routes are mounted at `/api/auth/[...nextauth]` (internal, not part of the `/api/v1` contract — needed for cookie session management).
 - `getCurrentUser`/`requireUser` (`src/lib/session.ts`) resolve the current user by trying the Auth.js session first, then `Authorization: Bearer <jwt>`.
 

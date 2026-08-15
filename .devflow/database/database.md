@@ -8,7 +8,8 @@
 - `BusinessProfile` — name, contact, address, tax number (GSTIN), logo, currency (default `INR`), branding fields.
 - `Customer` — contact/address/tax fields, notes. Unique per `(userId, customerName)`.
 - `Product` — name, description, `sku` (optional), price, taxRate, unit. Unique per `(userId, sku)`.
-- `Quote` / `QuoteItem` — `quoteNumber` (`Q-{year}-{00001}`), status enum (`DRAFT/SENT/ACCEPTED/REJECTED/EXPIRED/CONVERTED`), server-calculated subtotal/tax/total, discount, conversion link (`convertedToInvoiceId`).
+- `Quote` / `QuoteItem` — `quoteNumber` (`Q-{year}-{00001}`), status enum (`DRAFT/SENT/ACCEPTED/REJECTED/EXPIRED/CONVERTED`), server-calculated subtotal/tax/total, discount. Conversion link lives on `Invoice.quoteId` (unique FK back to the source quote) — a converted quote is found via `quote.invoice`, not a duplicate FK on Quote itself (see decisions.md, fixed a Prisma relation bug 2026-08-15).
+- `PasswordResetToken` — `token` (sha256 hash, never raw), `expiresAt`, `usedAt` (single-use), FK to `User`.
 - `Invoice` / `InvoiceItem` — `invoiceNumber` (`INV-{year}-{00001}`), `quoteId` back-reference, `paidAmount`/`paymentStatus` enum (`UNPAID/PARTIALLY_PAID/PAID/OVERDUE`), `dueAt`.
 
 ## Conventions
