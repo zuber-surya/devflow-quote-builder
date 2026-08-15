@@ -178,7 +178,7 @@ npm run db:migrate:prod  # Deploy migrations (prod)
 ### 2. Quote → Invoice Conversion
 **Decision:** Simple conversion (status → CONVERTED, create new invoice, keep original)  
 **Rationale:** Maintains audit trail, prevents data loss, preserves quote history  
-**Implementation:** Quote.convertedToInvoiceId links to created invoice
+**Implementation:** Invoice.quoteId (unique FK) links back to the source quote - found via `quote.invoice`, not a duplicate pointer on Quote itself
 
 ### 3. Authentication Strategy
 **Decision:** Hybrid (NextAuth for web, JWT for mobile)  

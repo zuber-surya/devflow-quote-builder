@@ -181,7 +181,6 @@ export interface Quote {
   discountPercentage?: number;
   notes?: string;
   termsAndConditions?: string;
-  convertedToInvoiceId?: string;
   convertedAt?: Date;
   userId: string;
   createdAt: Date;

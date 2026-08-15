@@ -22,6 +22,14 @@ Approved decisions only. Each entry: decision, rationale, source, date.
 - **Known CVEs surfaced by `npm audit`** in `postcss`/`sharp` (bundled inside `next@15.x`) and `uuid@9.x` — all fixes require a major version bump (Next 15→16, uuid 9→14). Not done as part of this auth fix; flagged for a deliberate decision, not silently upgraded.
 - **Deferred:** `password-reset` endpoint — needs a `PasswordResetToken` schema addition and an email-provider decision. See `questions/open-questions.md` item 7.
 
+## Password-reset implementation (2026-08-15, feature/password-reset branch)
+
+- **Two more pre-existing schema bugs found while running `prisma generate` for the first time ever on this schema** (confirms it had never successfully run before - see `PROJECT_FOUNDATION_SUMMARY.md`'s "complete database schema" claim was never validated): (1) `Quote`/`Invoice` had a duplicate-FK relation error - both sides declared `fields`/`references` on the same relation. Fixed by keeping the FK only on `Invoice.quoteId` (now `@unique`), `Quote.invoice` is a pure back-relation; removed the now-redundant `Quote.convertedToInvoiceId` scalar (updated `api.ts`, `database.md`, `GETTING_STARTED.md` to match). (2) every money field used the invalid native type `@db.Numeric(...)` — PostgreSQL's Prisma native type is `@db.Decimal(...)`. Global fix, no precision/scale change.
+- **Endpoints:** `POST /api/v1/auth/password-reset` (request, always identical generic response, email sent fire-and-forget not awaited — avoids a timing side-channel that would otherwise leak account existence even with an identical response body) and `POST /api/v1/auth/password-reset/confirm` (atomic validate+consume+apply-password in one transaction, via `consumePasswordReset()` — closes a TOCTOU race a naive validate-then-consume sequence would have).
+- **`revokeAllRefreshTokensForUser()`** added to `jwt.ts` — a password reset invalidates all existing mobile sessions too, since the old password may have been compromised.
+- **Extracted `hashToken()`** to `src/lib/crypto.ts`, shared between `jwt.ts` and `password-reset.ts` (was duplicated).
+- Self-reviewed via `feature-code-reviewer` before this note was written; all findings fixed, not left open.
+
 ## Open-flag resolutions (2026-08-15)
 
 - **Git workflow confirmed:** feature branches + PRs, as `CLAUDE.md` already states. The M1 auth work went straight to `master` (a deviation, now corrected) — starting with the next feature, branch per issue, PR per feature, self-review via `feature-code-reviewer` before merge.

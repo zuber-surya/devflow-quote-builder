@@ -24,12 +24,13 @@ model User {
   updatedAt DateTime @updatedAt
 
   // Relations
-  businessProfile BusinessProfile?
-  customers       Customer[]
-  products        Product[]
-  quotes          Quote[]
-  invoices        Invoice[]
-  refreshTokens   RefreshToken[]
+  businessProfile     BusinessProfile?
+  customers           Customer[]
+  products            Product[]
+  quotes              Quote[]
+  invoices            Invoice[]
+  refreshTokens       RefreshToken[]
+  passwordResetTokens PasswordResetToken[]
 
   @@map("users")
 }
@@ -44,6 +45,19 @@ model RefreshToken {
   userId String
 
   @@map("refresh_tokens")
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  token     String    @unique @db.Text // sha256 hash, never the raw token
+  expiresAt DateTime
+  usedAt    DateTime? // set on successful reset - a used token can't be replayed
+  createdAt DateTime  @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  @@map("password_reset_tokens")
 }
 
 // ============================================================================
@@ -146,8 +160,8 @@ model Product {
   sku         String? @db.VarChar(100)
 
   // Pricing & Tax
-  price   Decimal @db.Numeric(12, 2) // Price per unit
-  taxRate Decimal @default(0) @db.Numeric(5, 2) // Tax percentage (e.g., 18.00 for 18%)
+  price   Decimal @db.Decimal(12, 2) // Price per unit
+  taxRate Decimal @default(0) @db.Decimal(5, 2) // Tax percentage (e.g., 18.00 for 18%)
   unit    String  @default("Unit") @db.VarChar(50)
 
   createdAt DateTime @default(now())
@@ -184,20 +198,19 @@ model Quote {
   expiresAt DateTime?   // When quote expires
 
   // Financials (RECALCULATED ON SERVER)
-  subtotal Decimal @db.Numeric(14, 2) // Sum of line items
-  taxAmount Decimal @db.Numeric(14, 2) // Total tax
-  total    Decimal @db.Numeric(14, 2) // subtotal + tax - discount
+  subtotal Decimal @db.Decimal(14, 2) // Sum of line items
+  taxAmount Decimal @db.Decimal(14, 2) // Total tax
+  total    Decimal @db.Decimal(14, 2) // subtotal + tax - discount
 
-  discount       Decimal? @default(0) @db.Numeric(14, 2) // Discount amount
-  discountPercentage Decimal? @db.Numeric(5, 2) // Discount %
+  discount       Decimal? @default(0) @db.Decimal(14, 2) // Discount amount
+  discountPercentage Decimal? @db.Decimal(5, 2) // Discount %
 
   // Notes & Terms
   notes String? @db.Text
   termsAndConditions String? @db.Text
 
   // Conversion to Invoice
-  convertedToInvoiceId String?  // Link to created invoice
-  convertedAt          DateTime?
+  convertedAt DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -206,8 +219,10 @@ model Quote {
   userId String
 
   // Relations
-  items   QuoteItem[]
-  invoice Invoice?    @relation("QuoteToInvoice", fields: [convertedToInvoiceId], references: [id])
+  items QuoteItem[]
+  // Back-relation only - the FK lives on Invoice.quoteId (single source of
+  // truth; a quote is looked up via quote.invoice, no duplicate pointer).
+  invoice Invoice? @relation("QuoteToInvoice")
 
   @@unique([userId, quoteNumber])
   @@map("quotes")
@@ -229,14 +244,14 @@ model QuoteItem {
   product   Product @relation(fields: [productId], references: [id], onDelete: Restrict)
   productId String
 
-  quantity Decimal @db.Numeric(10, 4)
-  unitPrice Decimal @db.Numeric(12, 2) // Price at time of quote
+  quantity Decimal @db.Decimal(10, 4)
+  unitPrice Decimal @db.Decimal(12, 2) // Price at time of quote
   
-  discount Decimal? @default(0) @db.Numeric(14, 2) // Item-level discount
-  taxRate  Decimal  @db.Numeric(5, 2) // Tax % for this item
+  discount Decimal? @default(0) @db.Decimal(14, 2) // Item-level discount
+  taxRate  Decimal  @db.Decimal(5, 2) // Tax % for this item
   
   // Calculated at server
-  lineTotal Decimal @db.Numeric(14, 2) // (quantity * unitPrice) - discount
+  lineTotal Decimal @db.Decimal(14, 2) // (quantity * unitPrice) - discount
 
   quote   Quote  @relation(fields: [quoteId], references: [id], onDelete: Cascade)
   quoteId String
@@ -261,24 +276,25 @@ model Invoice {
   customer   Customer @relation(fields: [customerId], references: [id], onDelete: Restrict)
   customerId String
 
-  // Reference to source quote (if converted from quote)
-  sourceQuote Quote? @relation("QuoteToInvoice", fields: [quoteId], references: [id], onDelete: SetNull)
-  quoteId     String?
+  // Reference to source quote (if converted from quote) - unique because
+  // this is a 1:1 relation, a quote converts to at most one invoice.
+  sourceQuote Quote?  @relation("QuoteToInvoice", fields: [quoteId], references: [id], onDelete: SetNull)
+  quoteId     String? @unique
 
   // Dates
   issuedAt DateTime @default(now())
   dueAt    DateTime // Payment due date
 
   // Financials (RECALCULATED ON SERVER)
-  subtotal Decimal @db.Numeric(14, 2)
-  taxAmount Decimal @db.Numeric(14, 2)
-  total    Decimal @db.Numeric(14, 2)
+  subtotal Decimal @db.Decimal(14, 2)
+  taxAmount Decimal @db.Decimal(14, 2)
+  total    Decimal @db.Decimal(14, 2)
   
-  discount       Decimal? @default(0) @db.Numeric(14, 2)
-  discountPercentage Decimal? @db.Numeric(5, 2)
+  discount       Decimal? @default(0) @db.Decimal(14, 2)
+  discountPercentage Decimal? @db.Decimal(5, 2)
 
   // Payment Tracking
-  paidAmount      Decimal         @default(0) @db.Numeric(14, 2)
+  paidAmount      Decimal         @default(0) @db.Decimal(14, 2)
   paymentStatus   PaymentStatus   @default(UNPAID)
   markedPaidAt    DateTime?
   markedPaidBy    String?         // User ID who marked as paid
@@ -314,13 +330,13 @@ model InvoiceItem {
   product   Product @relation(fields: [productId], references: [id], onDelete: Restrict)
   productId String
 
-  quantity Decimal @db.Numeric(10, 4)
-  unitPrice Decimal @db.Numeric(12, 2)
+  quantity Decimal @db.Decimal(10, 4)
+  unitPrice Decimal @db.Decimal(12, 2)
   
-  discount Decimal? @default(0) @db.Numeric(14, 2)
-  taxRate  Decimal  @db.Numeric(5, 2)
+  discount Decimal? @default(0) @db.Decimal(14, 2)
+  taxRate  Decimal  @db.Decimal(5, 2)
   
-  lineTotal Decimal @db.Numeric(14, 2) // Calculated at server
+  lineTotal Decimal @db.Decimal(14, 2) // Calculated at server
 
   invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
   invoiceId String

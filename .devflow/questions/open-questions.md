@@ -8,6 +8,6 @@ Items surfaced during the 2026-08-14 documentation review that still need a huma
 4. **Mobile/responsive mockups** (blocks Flutter work + responsive web) — stitch is desktop-first only ("Mobile versions planned" per its own README). Formal spec's breakpoints are the interim fallback.
 5. **GSTIN/LUT field validation** — stitch Tax Settings mockup shows export/zero-rated-supply fields beyond the base PRD's "tax settings, GST" line. Confirm these are wanted for V1 or trim at build time.
 6. **Rotate the leaked Stitch API key** — see `security/security.md`. Human action required in Google Cloud console; not something this session can do.
-7. **Password reset delivery** — provider decided 2026-08-15: **Resend**. Still not implemented: needs a `PasswordResetToken` Prisma model plus the `resend` package/API key and the two endpoints (request + confirm). Ready to build whenever prioritized.
+7. ~~**Password reset delivery**~~ — done 2026-08-15. Resend, `PasswordResetToken` model, both endpoints implemented and tested.
 
 Resolved this session (kept here briefly for continuity, remove once Phase 1 starts): PDF library, quote→invoice workflow, auth strategy, payment tracking, file upload, numbering, UI design-system choice, Sprint Plan/ADR fiction-vs-reality mismatch — all recorded in `decisions/decisions.md`.

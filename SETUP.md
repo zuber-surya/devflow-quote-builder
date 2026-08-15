@@ -76,6 +76,17 @@ NEXTAUTH_URL="http://localhost:3000"
 JWT_SECRET="your-jwt-secret-key-change-this-in-production"
 ```
 
+**Required for password reset emails (Resend):**
+```
+RESEND_API_KEY="re_..."          # from resend.com dashboard
+EMAIL_FROM="no-reply@yourdomain.com"
+```
+Without `RESEND_API_KEY` set, `/api/v1/auth/password-reset` still responds
+200 (by design - it never reveals delivery failure, to avoid leaking which
+emails have accounts) but the email silently never sends; check server logs
+for "Password reset email failed to send" if you need to debug delivery
+in dev.
+
 ---
 
 ## 📦 STEP 3: Install Dependencies (3-5 min)
