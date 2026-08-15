@@ -22,6 +22,13 @@ Approved decisions only. Each entry: decision, rationale, source, date.
 - **Known CVEs surfaced by `npm audit`** in `postcss`/`sharp` (bundled inside `next@15.x`) and `uuid@9.x` — all fixes require a major version bump (Next 15→16, uuid 9→14). Not done as part of this auth fix; flagged for a deliberate decision, not silently upgraded.
 - **Deferred:** `password-reset` endpoint — needs a `PasswordResetToken` schema addition and an email-provider decision. See `questions/open-questions.md` item 7.
 
+## Business Profile CRUD (2026-08-15, feature/business-profile branch) — last item on issue #2
+
+- **Endpoints:** `GET`/`PUT` `/api/v1/business-profile` (singleton per user, `PUT` upserts), `POST /upload-logo` (requires the profile to exist first).
+- **`src/types/api.ts` fixed** to match schema: `website` was wrongly optional (schema has it required), `defaultTermsNote` was missing.
+- **Self-reviewed via `feature-code-reviewer`, real finding fixed: MIME-type spoofing.** The upload route originally trusted the client-declared `Content-Type` and kept the client's filename extension — a file could claim `image/png` while actually being `.html`/`.svg`, get written under `/public/business-logos/`, and be served statically as that real content-type by the browser (stored-XSS-adjacent). Fixed: verify real file-content magic bytes (PNG/JPEG signatures) server-side; the stored filename is now fully server-generated (`{timestamp}.{verified-ext}`), never derived from client input at all.
+- Also fixed from review: no `.max(255)` on email (would 500 at the DB layer instead of a clean 400), no format check on `primaryAccentColor` (added hex regex), added an early `Content-Length` pre-check before body parsing (partial DoS mitigation — a real platform-level body-size limit is still needed before production, deferred to M9 alongside the other deployment-platform-specific items).
+
 ## Password-reset implementation (2026-08-15, feature/password-reset branch)
 
 - **Two more pre-existing schema bugs found while running `prisma generate` for the first time ever on this schema** (confirms it had never successfully run before - see `PROJECT_FOUNDATION_SUMMARY.md`'s "complete database schema" claim was never validated): (1) `Quote`/`Invoice` had a duplicate-FK relation error - both sides declared `fields`/`references` on the same relation. Fixed by keeping the FK only on `Invoice.quoteId` (now `@unique`), `Quote.invoice` is a pure back-relation; removed the now-redundant `Quote.convertedToInvoiceId` scalar (updated `api.ts`, `database.md`, `GETTING_STARTED.md` to match). (2) every money field used the invalid native type `@db.Numeric(...)` — PostgreSQL's Prisma native type is `@db.Decimal(...)`. Global fix, no precision/scale change.

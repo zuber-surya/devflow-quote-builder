@@ -15,7 +15,7 @@
 - `getCurrentUser`/`requireUser` (`src/lib/session.ts`) resolve the current user by trying the Auth.js session first, then `Authorization: Bearer <jwt>`.
 
 ## Resource endpoints (standard CRUD unless noted)
-- `/api/v1/business-profile` — GET/PUT (singleton per user), `POST /upload-logo`.
+- `/api/v1/business-profile` — implemented. `GET`/`PUT` (singleton per user, `PUT` upserts), `POST /upload-logo` (jpg/png, 5MB max, local filesystem `/public/business-logos/{userId}/`, requires the profile to already exist).
 - `/api/v1/customers` — CRUD + search.
 - `/api/v1/products` — CRUD + search.
 - `/api/v1/quotes` — CRUD, `POST /{id}/duplicate`, `POST /{id}/convert-to-invoice`, `GET /{id}/pdf`.
